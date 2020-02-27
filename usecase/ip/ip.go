@@ -45,8 +45,14 @@ func (ip *IP) WriteToHosts(url, system string) error {
 	}
 
 	for _, ans := range resp.Answer {
-		ip := ans.Data
-		listIP = append(listIP, ip)
+		if ans.IP == "" {
+			continue
+		}
+		listIP = append(listIP, ans.IP)
+	}
+
+	if len(listIP) == 0 {
+		return fmt.Errorf("URL tidak ditemukan")
 	}
 
 	path := model.NonWindowsPath

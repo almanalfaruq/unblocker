@@ -32,10 +32,10 @@ func TestIP_WriteToHosts(t *testing.T) {
 				repoIP.EXPECT().GetListIP("test.com").Return(model.Response{
 					Answer: []model.Answer{
 						{
-							Data: "192.168.8.1",
+							IP: "192.168.8.1",
 						},
 						{
-							Data: "192.168.8.2",
+							IP: "192.168.8.2",
 						},
 					},
 				}, nil)
@@ -54,10 +54,10 @@ func TestIP_WriteToHosts(t *testing.T) {
 				repoIP.EXPECT().GetListIP("test.com").Return(model.Response{
 					Answer: []model.Answer{
 						{
-							Data: "192.168.8.1",
+							IP: "192.168.8.1",
 						},
 						{
-							Data: "192.168.8.2",
+							IP: "192.168.8.2",
 						},
 					},
 				}, nil)
@@ -83,15 +83,32 @@ func TestIP_WriteToHosts(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name: "Error-URLNotFound",
+			mock: func() {
+				repoIP.EXPECT().GetListIP("test.com").Return(model.Response{
+					Answer: []model.Answer{
+						{
+							IP: "",
+						},
+					},
+				}, nil)
+			},
+			args: args{
+				url:    "https://www.test.com",
+				system: "linux",
+			},
+			wantErr: true,
+		},
+		{
 			name: "Error-WriteComment",
 			mock: func() {
 				repoIP.EXPECT().GetListIP("test.com").Return(model.Response{
 					Answer: []model.Answer{
 						{
-							Data: "192.168.8.1",
+							IP: "192.168.8.1",
 						},
 						{
-							Data: "192.168.8.2",
+							IP: "192.168.8.2",
 						},
 					},
 				}, nil)
@@ -109,7 +126,7 @@ func TestIP_WriteToHosts(t *testing.T) {
 				repoIP.EXPECT().GetListIP("test.com").Return(model.Response{
 					Answer: []model.Answer{
 						{
-							Data: "192.168.8.1",
+							IP: "192.168.8.1",
 						},
 					},
 				}, nil)
@@ -128,7 +145,7 @@ func TestIP_WriteToHosts(t *testing.T) {
 				repoIP.EXPECT().GetListIP("test.com").Return(model.Response{
 					Answer: []model.Answer{
 						{
-							Data: "192.168.8.1",
+							IP: "192.168.8.1",
 						},
 					},
 				}, nil)

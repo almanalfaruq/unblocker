@@ -1,11 +1,11 @@
 package model
 
 type Response struct {
-	Answer []Answer `json:"Answer"`
+	Answer []Answer `json:"Answer,omitempty"`
 }
 
 type Answer struct {
-	Data string `json:"data"`
+	IP string `json:"data,omitempty"`
 }
 
 type ListIP []string

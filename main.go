@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"runtime"
 
 	commandrepo "github.com/almanalfaruq/unblocker/repo/command"
@@ -15,14 +14,18 @@ import (
 
 var ipUsecase *usecase.IP = nil
 
-func writeToHosts(url string) error {
-	fmt.Println(url)
+func writeToHosts(url string) string {
 	if ipUsecase == nil {
-		return fmt.Errorf("Usecase is nil")
+		return "Usecase is nil"
 	}
 
 	system := runtime.GOOS
-	return ipUsecase.WriteToHosts(url, system)
+	err := ipUsecase.WriteToHosts(url, system)
+	if err != nil {
+		return err.Error()
+	}
+
+	return ""
 }
 
 func main() {

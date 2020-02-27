@@ -13,11 +13,21 @@ Aplikasi ini akan mempersingkat langkah-langkah yang tertulis pada [thread ini d
 ## Petunjuk Compile
 Requirements:
 
-* Golang (version 1.12+)
+* Golang (version 1.13+)
 * [Wails](https://github.com/wailsapp/wails) (Cek cara install-nya juga)
 
 Petunjuk:
 
-1. Clone repo ini
-2. Pindah ke direktori hasil clone
-3. Jalankan perintah `wails build`. Apabila menggunakan selain Linux, gunakan perintah `wails build -p`.
+1. Clone repo ini.
+2. Pindah ke direktori hasil clone.
+3. Jalankan perintah `wails build`.
+
+## More Info
+This project is an open-source project that created using wails and google dns lookup to write IP addresses of some website into the hosts file of the computer.
+
+If you have any issue, feel free to open issue or contact me through [my twitter](https://twitter.com/almanalfaruq)
+
+Dependencies:
+- [Wails](https://github.com/wailsapp/wails)
+- [Google DNS Lookup](https://dns.google.com/)
+- [Vuetify](https://vuetifyjs.com/en/)
