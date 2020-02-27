@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"runtime"
-	filerepo "unblocker/repo/file"
-	iprepo "unblocker/repo/ip"
-	usecase "unblocker/usecase/ip"
+
+	commandrepo "github.com/almanalfaruq/unblocker/repo/command"
+	filerepo "github.com/almanalfaruq/unblocker/repo/file"
+	iprepo "github.com/almanalfaruq/unblocker/repo/ip"
+	usecase "github.com/almanalfaruq/unblocker/usecase/ip"
 
 	"github.com/leaanthony/mewn"
 	"github.com/wailsapp/wails"
@@ -26,7 +28,8 @@ func writeToHosts(url string) error {
 func main() {
 	ipRepo := iprepo.New()
 	fileRepo := filerepo.New()
-	ipUsecase = usecase.New(ipRepo, fileRepo)
+	commandRepo := commandrepo.New()
+	ipUsecase = usecase.New(ipRepo, fileRepo, commandRepo)
 	js := mewn.String("./frontend/dist/app.js")
 	css := mewn.String("./frontend/dist/app.css")
 

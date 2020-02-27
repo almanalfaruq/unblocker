@@ -2,28 +2,35 @@ package ip
 
 import (
 	"fmt"
-	"os/exec"
 	"strings"
-	"unblocker/model"
+
+	"github.com/almanalfaruq/unblocker/model"
 )
 
+//go:generate mockgen -destination=ip_mock_test.go -package=ip github.com/almanalfaruq/unblocker/usecase/ip RepoIPIface,RepoFileIface,RepoCommandIface
 type IP struct {
-	repoIP   repoIPIface
-	repoFile repoFileIface
+	repoIP      RepoIPIface
+	repoFile    RepoFileIface
+	repoCommand RepoCommandIface
 }
 
-type repoIPIface interface {
+type RepoIPIface interface {
 	GetListIP(url string) (model.Response, error)
 }
 
-type repoFileIface interface {
+type RepoFileIface interface {
 	WriteToFile(path, text string) error
 }
 
-func New(repoIP repoIPIface, repoFile repoFileIface) *IP {
+type RepoCommandIface interface {
+	RunFlushDNS() error
+}
+
+func New(repoIP RepoIPIface, repoFile RepoFileIface, repoCommand RepoCommandIface) *IP {
 	return &IP{
-		repoIP:   repoIP,
-		repoFile: repoFile,
+		repoIP:      repoIP,
+		repoFile:    repoFile,
+		repoCommand: repoCommand,
 	}
 }
 
@@ -58,10 +65,9 @@ func (ip *IP) WriteToHosts(url, system string) error {
 	}
 
 	if system == model.Windows {
-		cmd := exec.Command("ipconfig", "/flushdns")
-		err = cmd.Run()
+		err = ip.repoCommand.RunFlushDNS()
 		if err != nil {
-			return fmt.Errorf("Must run flushdns manually\n Error: %v", err)
+			return err
 		}
 	}
 

@@ -3,9 +3,9 @@ package ip
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/almanalfaruq/unblocker/model"
 	"io/ioutil"
 	"net/http"
-	"unblocker/model"
 )
 
 type IP struct{}
